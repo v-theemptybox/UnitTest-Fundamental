@@ -32,5 +32,17 @@ namespace UnitTest1
         //    Assert.AreEqual(exp_max, act_max, 0);
         //    Assert.AreEqual(exp_mean, act_mean, 0);
         //}
+        public TestContext TestContext { get; set; }
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
+            "|DataDirectory|\\TextFile1.csv", "TextFile1#csv", DataAccessMethod.Sequential), DeploymentItem("TextFile1.csv"), TestMethod]
+        public void TinhTienDienTest1()
+        {
+            ConsoleApplication1.Class1 c = new ConsoleApplication1.Class1();
+            int chiSoCu = Convert.ToInt32(TestContext.DataRow[1].ToString());
+            int chiSoMoi = Convert.ToInt32(TestContext.DataRow[2].ToString());
+            double actual = c.tinhTienDien(chiSoCu, chiSoMoi);
+            double expected = Convert.ToDouble(TestContext.DataRow[3].ToString());
+            Assert.AreEqual(expected, actual, 0.1);
+        }
     }
 }
